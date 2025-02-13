@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QCMs Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="./HealthIT White.png" id="hitLogo" alt="HealthIT Logo" loading="lazy">
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <div id="topTitle">
+            <h1>Calculateur de Notes</h1>
+        </div>
+        <div class="examInfos">
+            <div class="numQuestionDiv">
+                <label for="numQuestions" class="labelTitle">Nombre total de questions dans le sujet :</label>
+                <input type="number" id="numQuestions" min="1" required class="selectBox">
+            </div>
+            <div class="testTypeDiv">
+                <label for="testType" class="labelTitle">Type de correction :</label>
+                <select id="testType" class="selectBox">
+                    <option value="QCSs">QCSs</option>
+                    <option value="allOrNothing">QCMs Tout ou Rien</option>
+                    <option value="partiallyPositive">QCMs Partiel Positive</option>
+                    <option value="partiallyNegative">QCMs Partiel Négative</option>
+                </select>
+            </div>
+            <button onclick="generateAnswerInputs()">Suivant</button>
+        </div>
+        <div id="answerInputs">
+            <div id="ctTitle"></div>
+            <div id="userTitle"></div>
+        </div>
+        <div id="result">
+
+        </div>
+    </div>
+    <script src="./script.js"></script>
+</body>
+<footer>
+</footer>
+</html>
