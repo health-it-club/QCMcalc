@@ -1,7 +1,29 @@
-export default function NumbreOfQuestions() {
+"use client";
+
+import type { ChangeEvent } from "react";
+
+//Props
+interface NumbreOfQuestionsProps {
+  onChange: (value: number) => void;
+}
+
+export default function NumbreOfQuestions({
+  onChange,
+}: NumbreOfQuestionsProps) {
+  //Event Handler
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = Number.parseInt(e.target.value);
+    onChange(isNaN(value) ? 0 : value);
+  };
+
+  //The Render
   return (
-    <div className="flex flex-col items-center my-6 w-full">
-      <label htmlFor="numOfQuestions" className="text-lg font-bold mt-4 mb-2">
+    <div
+      className="flex flex-col items-center my-6 w-full"
+      id="numOfQuestionsDiv">
+      <label
+        htmlFor="numOfQuestions"
+        className="text-md md:text-xl font-bold mt-4 mb-2 mx-1 text-center">
         Nombre total de questions dans le sujet
       </label>
       <input
@@ -11,10 +33,11 @@ export default function NumbreOfQuestions() {
         step={1}
         required
         name="numOfQuestions"
-        id="numOfQuestions"
+        id="numQuestions"
         placeholder=""
         inputMode="numeric"
-        className="w-full p-4 text-lg bg-light rounded-full text-center text-dark
+        onChange={handleChange}
+        className="w-10/12 p-4 text-xs md:text-xl bg-light rounded-full text-center text-dark
           appearance-none 
           [-moz-appearance:textfield] 
           [&::-webkit-inner-spin-button]:appearance-none 

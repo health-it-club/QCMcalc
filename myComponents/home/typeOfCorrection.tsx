@@ -1,14 +1,32 @@
-export default function TypeOfCorrection() {
+"use client";
+
+import type { ChangeEvent } from "react";
+
+//Props
+interface TypeOfCorrectionProps {
+  onChange: (value: string) => void;
+}
+
+export default function TypeOfCorrection({ onChange }: TypeOfCorrectionProps) {
+  //Event handler
+  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    onChange(e.target.value);
+  };
+
+  //The Render
   return (
     <div className="flex flex-col items-center my-6">
-      <label htmlFor="typeOfCorrection" className="text-lg font-bold mt-4 mb-2">
+      <label
+        htmlFor="typeOfCorrection"
+        className="text-md md:text-xl font-bold mt-4 mb-2 text-center">
         Type de Correction
       </label>
       <select
         required
         name="typeOfCorrection"
-        id="typeOfCorrection"
-        className="w-full p-4 text-lg bg-light rounded-full text-center text-dark
+        id="testType"
+        onChange={handleChange}
+        className="w-10/12 p-4 text-sm md:text-xl bg-light rounded-full text-center text-dark
         appearance-none 
         [-moz-appearance:textfield] 
         [&::-webkit-inner-spin-button]:appearance-none 

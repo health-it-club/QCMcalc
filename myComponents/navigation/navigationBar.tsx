@@ -9,7 +9,7 @@ export default function NavigationBar() {
   return (
     <div className="w-full bg-background border-b-1 border-solid lborder-light-800 backdrop-blur-md">
       <nav className="p-4 flex flex-row justify-between items-center my-1">
-        <div className="flex items-center">
+        <div className="">
           <a href="/">
             <HITlogo />
           </a>
