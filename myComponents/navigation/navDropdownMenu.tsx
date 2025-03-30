@@ -13,6 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import DropdownMenuButton from "./dropdownMenuButton";
+import Link from "next/link";
 
 export function NavDropdownMenu() {
   return (
@@ -24,9 +25,15 @@ export function NavDropdownMenu() {
         <DropdownMenuLabel>Menu</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>Examens de Constantine</DropdownMenuItem>
-          <DropdownMenuItem>How Does it Work</DropdownMenuItem>
-          <DropdownMenuItem>Contactez Nous</DropdownMenuItem>
+          <Link href="/ConstantineExams">
+            <DropdownMenuItem>Examens de Constantine</DropdownMenuItem>
+          </Link>
+          <Link href="/HowDoesItWork">
+            <DropdownMenuItem>How Does it Work</DropdownMenuItem>
+          </Link>
+          <Link href="https://linktr.ee/Health._it" target="blank">
+            <DropdownMenuItem>Contactez Nous</DropdownMenuItem>
+          </Link>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem disabled>API</DropdownMenuItem>

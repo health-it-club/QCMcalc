@@ -5,7 +5,7 @@ import Background from "../UI/background";
 import CustomButton from "../UI/button";
 import NumbreOfQuestions from "./numbreOfQuestions";
 import TypeOfCorrection from "./typeOfCorrection";
-import QuizForm from "../logic/answersInput";
+import QuizForm from "../logic/calculator";
 
 export default function MainSection() {
   //State
@@ -34,7 +34,7 @@ export default function MainSection() {
 
   //The Render
   return (
-    <div className="md:w-6/12 w-full">
+    <div className="w-full">
       <Background />
       <div className="relative z-10">
         <NumbreOfQuestions onChange={handleNumQuestionsChange} />
