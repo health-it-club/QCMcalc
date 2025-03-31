@@ -1,6 +1,6 @@
 "use client";
 
-import type { ChangeEvent } from "react";
+import { useEffect, useState, type ChangeEvent } from "react";
 import { getUniqueYears } from "@/data/exams";
 
 interface YearSelectorProps {
@@ -12,11 +12,34 @@ export default function YearSelector({
   selectedYear,
   onChange,
 }: YearSelectorProps) {
-  const years = getUniqueYears();
+  const [years, setYears] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchYears() {
+      try {
+        const uniqueYears = await getUniqueYears();
+        setYears(uniqueYears);
+      } catch (error) {
+        console.error("Error fetching years:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchYears();
+  }, []);
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     onChange(e.target.value);
   };
+
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center my-3">
+        <p>Chargement des années...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col items-center my-3">

@@ -1,6 +1,6 @@
 "use client";
 
-import type { ChangeEvent } from "react";
+import { useEffect, useState, type ChangeEvent } from "react";
 import { getUniqueSubjects } from "@/data/exams";
 
 interface SubjectSelectorProps {
@@ -12,11 +12,34 @@ export default function SubjectSelector({
   selectedSubject,
   onChange,
 }: SubjectSelectorProps) {
-  const subjects = getUniqueSubjects();
+  const [subjects, setSubjects] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchSubjects() {
+      try {
+        const uniqueSubjects = await getUniqueSubjects();
+        setSubjects(uniqueSubjects);
+      } catch (error) {
+        console.error("Error fetching subjects:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchSubjects();
+  }, []);
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     onChange(e.target.value);
   };
+
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center my-6">
+        <p>Chargement des modules...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col items-center my-6">

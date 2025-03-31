@@ -129,8 +129,7 @@ export default function ExamForm({ exam, onBack }: PresetQuizFormProps) {
   return (
     <div className="w-full p-1">
       <div className="flex justify-between items-center mb-4 px-4">
-        <IconButton></IconButton>
-        <CustomButton onClick={onBack}>Retour</CustomButton>
+        <IconButton onClick={onBack}></IconButton>
         <span></span>
         <h2 className="text-4xl font-bold">{exam.name}</h2>
         <div className="w-8"></div> {/* Spacer for centering */}

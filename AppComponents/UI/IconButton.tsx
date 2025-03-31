@@ -1,9 +1,17 @@
 import { MoveLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-export function IconButton() {
+interface IconButtonProps {
+  onClick?: () => void;
+}
+
+export function IconButton({ onClick }: IconButtonProps) {
   return (
-    <Button variant="outline" size="icon">
+    <Button
+      variant="outline"
+      size="icon"
+      onClick={onClick}
+      className="cursor-pointer">
       <MoveLeft />
     </Button>
   );

@@ -1,0 +1,131 @@
+{
+  "exams": [
+    {
+      "id": "cardio-resp-M22",
+      "name": "U01: 2025",
+      "description": "Controle d'Unité Cardio-Respiratoire 2025",
+      "year": "3ème année",
+      "subject": "Cardio-Respiratoire",
+      "numQuestions": 10,
+      "testType": "partiallyNegative",
+      "correctAnswers": {
+        "1": ["A", "C", "D"],
+        "2": ["A", "B", "C", "E"],
+        "3": ["B"],
+        "4": ["B"],
+        "5": ["B"],
+        "6": ["B"],
+        "7": ["A", "B", "D"],
+        "8": ["A", "B"],
+        "9": ["B", "C", "D", "E"],
+        "10": ["B", "C", "D"]
+      }
+    },
+    {
+      "id": "immuno-M22-3",
+      "name": "M02: 2025",
+      "description": "Controle d'Immunologie 2025",
+      "year": "3ème année",
+      "subject": "Immunologie",
+      "numQuestions": 10,
+      "testType": "partiallyNegative",
+      "correctAnswers": {
+        "1": ["A", "D", "E"],
+        "2": ["C", "E"],
+        "3": ["A", "B"],
+        "4": ["A", "B", "E"],
+        "5": ["A", "C"],
+        "6": ["A", "D"],
+        "7": ["B", "C"],
+        "8": ["A", "B"],
+        "9": ["A", "C", "D", "E"],
+        "10": []
+      }
+    },
+    {
+      "id": "cardio-resp-M22-4",
+      "name": "M02: 2025",
+      "description": "Controle de Cardio-Respiratoire 2025",
+      "year": "4ème année",
+      "subject": "Cardio-Resp",
+      "numQuestions": 10,
+      "testType": "partiallyNegative",
+      "correctAnswers": {
+        "1": ["A", "D", "E"],
+        "2": ["C", "E"],
+        "3": ["A", "B"],
+        "4": ["A", "B", "E"],
+        "5": ["A", "C"],
+        "6": ["A", "D"],
+        "7": ["B", "C"],
+        "8": ["A", "B"],
+        "9": ["A", "C", "D", "E"],
+        "10": []
+      }
+    },
+    {
+      "id": "immuno-M22-5",
+      "name": "M02: 2025",
+      "description": "Controle d'Immunologie 2025",
+      "year": "5ème année",
+      "subject": "Immunologie",
+      "numQuestions": 10,
+      "testType": "partiallyNegative",
+      "correctAnswers": {
+        "1": ["A", "D", "E"],
+        "2": ["C", "E"],
+        "3": ["A", "B"],
+        "4": ["A", "B", "E"],
+        "5": ["A", "C"],
+        "6": ["A", "D"],
+        "7": ["B", "C"],
+        "8": ["A", "B"],
+        "9": ["A", "C", "D", "E"],
+        "10": []
+      }
+    },
+    {
+      "id": "geriatrie-M22-6",
+      "name": "M02: 2025",
+      "description": "Controle de Gériatrie 2025",
+      "year": "6ème année",
+      "subject": "Gériatrie",
+      "numQuestions": 10,
+      "testType": "partiallyNegative",
+      "correctAnswers": {
+        "1": ["A", "D", "E"],
+        "2": ["C", "E"],
+        "3": ["A", "B"],
+        "4": ["A", "B", "E"],
+        "5": ["A", "C"],
+        "6": ["A", "D"],
+        "7": ["B", "C"],
+        "8": ["A", "B"],
+        "9": ["A", "C", "D", "E"],
+        "10": []
+      }
+    },
+    {
+      "id": "anapath-M22-3",
+      "name": "M02: 2025",
+      "description": "Controle d'Anatomie Pathologique 2025",
+      "year": "3ème année",
+      "subject": "Anapath",
+      "numQuestions": 10,
+      "testType": "partiallyNegative",
+      "correctAnswers": {
+        "1": ["A", "D", "E"],
+        "2": ["C", "E"],
+        "3": ["A", "B"],
+        "4": ["A", "B", "E"],
+        "5": ["A", "C"],
+        "6": ["A", "D"],
+        "7": ["B", "C"],
+        "8": ["A", "B"],
+        "9": ["A", "C", "D", "E"],
+        "10": []
+      }
+    }
+  ]
+}
+

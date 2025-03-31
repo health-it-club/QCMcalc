@@ -12,24 +12,25 @@ export default function ExamPageContent() {
   const [selectedSubject, setSelectedSubject] = useState<string>("");
   const [selectedExam, setSelectedExam] = useState<ExamPreset | null>(null);
   const [filteredExams, setFilteredExams] = useState<ExamPreset[]>([]);
+  const [loading, setLoading] = useState(true);
 
   // Use useEffect to update filtered exams when selections change
   useEffect(() => {
-    const filtered = getFilteredExams(
-      selectedYear || undefined,
-      selectedSubject || undefined
-    );
-    setFilteredExams(filtered);
-
-    // Debug log
-    console.log(
-      "Year:",
-      selectedYear,
-      "Subject:",
-      selectedSubject,
-      "Results:",
-      filtered.length
-    );
+    async function updateFilteredExams() {
+      setLoading(true);
+      try {
+        const exams = await getFilteredExams(
+          selectedYear || undefined,
+          selectedSubject || undefined
+        );
+        setFilteredExams(exams);
+      } catch (error) {
+        console.error("Error filtering exams:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    updateFilteredExams();
   }, [selectedYear, selectedSubject]);
 
   const handleYearChange = (year: string) => {
@@ -47,18 +48,16 @@ export default function ExamPageContent() {
   const handleBackToList = () => {
     setSelectedExam(null);
   };
-
   return (
     <div className="w-full">
       <Background />
       <div className="relative z-10">
         {!selectedExam ? (
           <>
-            <div className="flex justify-center items-center pt-4">
-              <h1 className="text-xl md:text-2xl font-bold">
+            <div className="flex pt-4 justify-center">
+              <h1 className="text-xl md:text-2xl font-bold text-center bg-yellow text-dark px-4 py-1 rounded-full">
                 Examens De Constantine
               </h1>
-              <div className="w-8"></div> {/* Spacer for centering */}
             </div>
             <YearSelector
               selectedYear={selectedYear}
