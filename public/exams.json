@@ -1,0 +1,18 @@
+{
+    "exams": [
+      {
+        "id": "cardio-resp-M22",
+        "name": "U01: 2025",
+        "description": "Controle d'Unité Cardio-Respiratoire 2025",
+        "year": "3ème année",
+        "subject": "Cardio-Respiratoire",
+        "numQuestions": 10,
+        "testType": "partiallyNegative",
+        "correctAnswers": {
+          "1": ["A", "C", "D"],
+          "2": ["A", "B", "C", "E"]
+
+        }
+      }
+    ]
+  }

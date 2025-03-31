@@ -1,0 +1,124 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { type ExamPreset, getFilteredExams } from "@/data/exams";
+import YearSelector from "./yearSelector";
+import SubjectSelector from "./examSelector";
+import Background from "@/AppComponents/UI/background";
+import PresetQuizForm from "./examForm";
+
+export default function ExamPageContent() {
+  const [selectedYear, setSelectedYear] = useState<string>("");
+  const [selectedSubject, setSelectedSubject] = useState<string>("");
+  const [selectedExam, setSelectedExam] = useState<ExamPreset | null>(null);
+  const [filteredExams, setFilteredExams] = useState<ExamPreset[]>([]);
+
+  // Use useEffect to update filtered exams when selections change
+  useEffect(() => {
+    const filtered = getFilteredExams(
+      selectedYear || undefined,
+      selectedSubject || undefined
+    );
+    setFilteredExams(filtered);
+
+    // Debug log
+    console.log(
+      "Year:",
+      selectedYear,
+      "Subject:",
+      selectedSubject,
+      "Results:",
+      filtered.length
+    );
+  }, [selectedYear, selectedSubject]);
+
+  const handleYearChange = (year: string) => {
+    setSelectedYear(year);
+  };
+
+  const handleSubjectChange = (subject: string) => {
+    setSelectedSubject(subject);
+  };
+
+  const handleSelectExam = (exam: ExamPreset) => {
+    setSelectedExam(exam);
+  };
+
+  const handleBackToList = () => {
+    setSelectedExam(null);
+  };
+
+  return (
+    <div className="w-full">
+      <Background />
+      <div className="relative z-10">
+        {!selectedExam ? (
+          <>
+            <div className="flex justify-center items-center pt-4">
+              <h1 className="text-xl md:text-2xl font-bold">
+                Examens De Constantine
+              </h1>
+              <div className="w-8"></div> {/* Spacer for centering */}
+            </div>
+            <YearSelector
+              selectedYear={selectedYear}
+              onChange={handleYearChange}
+            />
+            <SubjectSelector
+              selectedSubject={selectedSubject}
+              onChange={handleSubjectChange}
+            />
+            <div className="p-4">
+              <h2 className="text-lg md:text-xl font-bold mb-4 text-center">
+                {filteredExams.length > 0
+                  ? `${filteredExams.length} examen(s) trouvé(s)`
+                  : "Aucun examen trouvé"}
+              </h2>
+
+              <div className="rounded-md border p-4">
+                <div className="grid grid-cols-1 gap-4">
+                  {filteredExams.map((exam) => (
+                    <div
+                      key={exam.id}
+                      className="cursor-pointer transition-all duration-300 hover:bg-light-100 p-4 bg-light rounded-lg"
+                      onClick={() => handleSelectExam(exam)}>
+                      <h3 className="text-lg font-bold text-dark">
+                        {exam.name}
+                      </h3>
+                      <p className="text-sm font-semibold mb-2 text-dark">
+                        {exam.description}
+                      </p>
+                      <div className="flex flex-wrap gap-2 mb-2">
+                        <span className="px-2 py-1 bg-yellow-300 rounded-full text-xs text-dark">
+                          {exam.year}
+                        </span>
+                        <span className="px-2 py-1 bg-yellow-300 rounded-full text-xs text-dark">
+                          {exam.subject}
+                        </span>
+                      </div>
+                      <p className="text-sm text-dark-800">
+                        Nombre de questions: {exam.numQuestions}
+                      </p>
+                      <p className="text-sm text-dark-800">
+                        Type de correction:{" "}
+                        {exam.testType === "QCSs"
+                          ? "QCS (Question à choix simple)"
+                          : exam.testType === "allOrNothing"
+                          ? "QCM Tout ou Rien"
+                          : exam.testType === "partiallyNegative"
+                          ? "QCM Partielle"
+                          : "QCM Système Américain"}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </>
+        ) : (
+          <PresetQuizForm exam={selectedExam} onBack={handleBackToList} />
+        )}
+      </div>
+    </div>
+  );
+}

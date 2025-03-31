@@ -1,72 +1,41 @@
 "use client";
 
 import { useState } from "react";
-import CustomButton from "../UI/button";
+import type { ExamPreset } from "@/data/exams";
+import CustomButton from "@/AppComponents/UI/CustomButton";
+import { IconButton } from "@/AppComponents/UI/IconButton";
 
-//Props and state
-interface CalculatorProps {
-  numQuestions: number;
-  testType: string;
+interface PresetQuizFormProps {
+  exam: ExamPreset;
+  onBack: () => void;
 }
 
-export default function Calculator({
-  numQuestions,
-  testType,
-}: CalculatorProps) {
-  const [correctAnswers, setCorrectAnswers] = useState<
-    Record<number, string[]>
-  >({});
+export default function ExamForm({ exam, onBack }: PresetQuizFormProps) {
   const [userAnswers, setUserAnswers] = useState<Record<number, string[]>>({});
   const [result, setResult] = useState<{
     totalScore: number;
     grade: number;
   } | null>(null);
 
-  //Checkbox Handler
-  const handleCheckboxChange = (
-    questionNumber: number,
-    type: string,
-    letter: string
-  ) => {
-    if (type === "Correct") {
-      setCorrectAnswers((prev) => {
-        const current = prev[questionNumber] || [];
-        if (current.includes(letter)) {
-          return {
-            ...prev,
-            [questionNumber]: current.filter((item) => item !== letter),
-          };
-        } else {
-          return {
-            ...prev,
-            [questionNumber]: [...current, letter],
-          };
-        }
-      });
-    } else {
-      setUserAnswers((prev) => {
-        const current = prev[questionNumber] || [];
-        if (current.includes(letter)) {
-          return {
-            ...prev,
-            [questionNumber]: current.filter((item) => item !== letter),
-          };
-        } else {
-          return {
-            ...prev,
-            [questionNumber]: [...current, letter],
-          };
-        }
-      });
-    }
+  const handleCheckboxChange = (questionNumber: number, letter: string) => {
+    setUserAnswers((prev) => {
+      const current = prev[questionNumber] || [];
+      if (current.includes(letter)) {
+        return {
+          ...prev,
+          [questionNumber]: current.filter((item) => item !== letter),
+        };
+      } else {
+        return {
+          ...prev,
+          [questionNumber]: [...current, letter],
+        };
+      }
+    });
   };
 
-  //Checkbox generation
-  const generateCheckboxes = (questionNumber: number, type: string) => {
-    const answers =
-      type === "Correct"
-        ? correctAnswers[questionNumber] || []
-        : userAnswers[questionNumber] || [];
+  const generateCheckboxes = (questionNumber: number) => {
+    const answers = userAnswers[questionNumber] || [];
 
     return (
       <div className="flex flex-col gap-1 items-center">
@@ -74,15 +43,13 @@ export default function Calculator({
           <div key={letter} className="flex items-center gap-1 w-full">
             <input
               type="checkbox"
-              id={`${letter}${type}${questionNumber}`}
+              id={`${letter}User${questionNumber}`}
               className="absolute opacity-0 cursor-pointer h-0 w-0 peer"
               checked={answers.includes(letter)}
-              onChange={() =>
-                handleCheckboxChange(questionNumber, type, letter)
-              }
+              onChange={() => handleCheckboxChange(questionNumber, letter)}
             />
             <label
-              htmlFor={`${letter}${type}${questionNumber}`}
+              htmlFor={`${letter}User${questionNumber}`}
               className="flex justify-center items-center 
               px-5 py-2.5 my-1
               bg-light text-dark
@@ -106,20 +73,18 @@ export default function Calculator({
     return a.every((val) => b.includes(val));
   };
 
-  //The actual Calculator
   const calculateGrade = () => {
     let totalScore = 0;
 
-    for (let i = 1; i <= numQuestions; i++) {
-      const correctAns = correctAnswers[i] || [];
+    for (let i = 1; i <= exam.numQuestions; i++) {
+      const correctAns = exam.correctAnswers[i] || [];
       const userAns = userAnswers[i] || [];
       let questionScore = 0;
       const numCorrectAnswers = correctAns.length;
 
       if (numCorrectAnswers === 0) continue; // Skip if no correct answers defined
 
-      switch (testType) {
-        //QCSs et tt ou rien sont la meme chose
+      switch (exam.testType) {
         case "QCSs":
         case "allOrNothing":
           if (arraysEqual(correctAns, userAns)) {
@@ -128,8 +93,6 @@ export default function Calculator({
             questionScore = 0;
           }
           break;
-
-        //Systeme americain
         case "partiallyPositive":
           for (const answer of userAns) {
             if (correctAns.includes(answer)) {
@@ -139,8 +102,6 @@ export default function Calculator({
             }
           }
           break;
-
-        //Systeme de constantine
         case "partiallyNegative":
           for (const answer of userAns) {
             if (correctAns.includes(answer)) {
@@ -153,43 +114,55 @@ export default function Calculator({
           break;
       }
 
-      //Nombre de questions corrected
       totalScore += Math.max(questionScore, 0);
     }
 
-    //La note sur 20
-    const gradePerQuestion = 20 / numQuestions;
+    const gradePerQuestion = 20 / exam.numQuestions;
     const grade = totalScore * gradePerQuestion;
 
-    //Les resultats
     setResult({
       totalScore,
       grade,
     });
   };
 
-  //The acutal generation
   return (
-    <div className="w-full mx-auto p-1">
-      <div id="answerInputs" className="space-y-2 w-full">
-        <div id="ctTitle" className="text-center mt-2">
-          <h4 className="text-lg md:text-xl font-bold">
-            Veuillez entrer les réponses correctes pour chaque question:
-          </h4>
+    <div className="w-full p-1">
+      <div className="flex justify-between items-center mb-4 px-4">
+        <IconButton></IconButton>
+        <CustomButton onClick={onBack}>Retour</CustomButton>
+        <span></span>
+        <h2 className="text-4xl font-bold">{exam.name}</h2>
+        <div className="w-8"></div> {/* Spacer for centering */}
+      </div>
+
+      <div className="p-4 bg-light rounded-lg">
+        <p className="px-2 py-1 text-lg font-semibold text-dark">
+          <strong>Description:</strong> {exam.description}
+        </p>
+        <p className="px-2 py-1 text-base text-dark">
+          <strong>Année:</strong> {exam.year}
+        </p>
+        <p className="px-2 py-1 text-base text-dark">
+          <strong>Module:</strong> {exam.subject}
+        </p>
+        <p className="px-2 py-1 text-sm text-dark">
+          <strong>Nombre de questions:</strong> {exam.numQuestions}
+        </p>
+        <div className="flex flex-wrap gap-2 mb-2">
+          <p className="p-2 py-1 bg-yellow-300 rounded-full text-sm text-dark">
+            {exam.testType === "QCSs"
+              ? "QCS (Question à choix simple)"
+              : exam.testType === "allOrNothing"
+              ? "QCM Tout ou Rien"
+              : exam.testType === "partiallyNegative"
+              ? "QCM Partielle"
+              : "QCM Système Américain"}
+          </p>
         </div>
+      </div>
 
-        {/* Correct answers section */}
-        {Array.from({ length: numQuestions }, (_, i) => (
-          <div
-            key={`correct-${i + 1}`}
-            className="answer-group md:gap-2 md:mb-6 flex flex-col md:mx-30">
-            <p className="text-base text-center mt-3 mb-2">
-              <b>Question {i + 1}</b> <em>(Sélectionnez la bonne réponse)</em>
-            </p>
-            {generateCheckboxes(i + 1, "Correct")}
-          </div>
-        ))}
-
+      <div id="answerInputs" className="space-y-2 w-full">
         <div id="userTitle" className="text-center mt-2">
           <h4 className="text-lg md:text-xl font-bold">
             Entrez vos réponses pour chaque question:
@@ -197,14 +170,14 @@ export default function Calculator({
         </div>
 
         {/* User answers section */}
-        {Array.from({ length: numQuestions }, (_, i) => (
+        {Array.from({ length: exam.numQuestions }, (_, i) => (
           <div
             key={`user-${i + 1}`}
             className="answer-group md:gap-2 md:mb-6 flex flex-col md:mx-30">
             <p className="font-base text-center mt-3 mb-2">
               <b>Question {i + 1}</b> <em>(Sélectionnez votre réponse)</em>
             </p>
-            {generateCheckboxes(i + 1, "User")}
+            {generateCheckboxes(i + 1)}
           </div>
         ))}
 
@@ -231,7 +204,7 @@ export default function Calculator({
             </h1>
             <h5 className="text-xl text-center mb-5">
               Nombre de réponses correctes: {result.totalScore.toFixed(2)} sur{" "}
-              {numQuestions}
+              {exam.numQuestions}
             </h5>
           </div>
         )}

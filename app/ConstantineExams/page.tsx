@@ -1,11 +1,11 @@
-import ConstantineExamsLanding from "@/myComponents/ConstantineExams/ConstantineExamsLanding";
-import NavigationBar from "@/myComponents/navigation/navigationBar";
+import NavigationBar from "@/AppComponents/navigation/navigationBar";
+import ExamPageContent from "./examPageContent";
 
 export default function ConstantineExams() {
   return (
     <div className="flex flex-col items-center">
       <NavigationBar />
-      <ConstantineExamsLanding />
+      <ExamPageContent />
     </div>
   );
 }

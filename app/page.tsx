@@ -1,5 +1,5 @@
-import MainSection from "@/myComponents/home/MainSection";
-import NavigationBar from "@/myComponents/navigation/navigationBar";
+import MainSection from "@/app/home/MainSection";
+import NavigationBar from "@/AppComponents/navigation/navigationBar";
 
 export default function Home() {
   return (

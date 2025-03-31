@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import Background from "../UI/background";
-import CustomButton from "../UI/button";
+import Background from "../../AppComponents/UI/background";
+import CustomButton from "../../AppComponents/UI/CustomButton";
 import NumbreOfQuestions from "./numbreOfQuestions";
 import TypeOfCorrection from "./typeOfCorrection";
-import QuizForm from "../logic/calculator";
+import QuizForm from "../../AppComponents/logic/calculator";
 
 export default function MainSection() {
   //State

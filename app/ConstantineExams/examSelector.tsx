@@ -1,0 +1,53 @@
+"use client";
+
+import type { ChangeEvent } from "react";
+import { getUniqueSubjects } from "@/data/exams";
+
+interface SubjectSelectorProps {
+  selectedSubject: string;
+  onChange: (subject: string) => void;
+}
+
+export default function SubjectSelector({
+  selectedSubject,
+  onChange,
+}: SubjectSelectorProps) {
+  const subjects = getUniqueSubjects();
+
+  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    onChange(e.target.value);
+  };
+
+  return (
+    <div className="flex flex-col items-center my-6">
+      <label
+        htmlFor="subjectSelector"
+        className="text-md md:text-xl font-bold mt-4 mb-2 text-center">
+        Module / Unité
+      </label>
+      <select
+        id="subjectSelector"
+        value={selectedSubject}
+        onChange={handleChange}
+        className="w-10/12 p-4 text-sm md:text-xl bg-light rounded-full text-center text-dark
+        appearance-none 
+        [-moz-appearance:textfield] 
+        [&::-webkit-inner-spin-button]:appearance-none 
+        [&::-webkit-outer-spin-button]:appearance-none
+        px-3 
+        py-2 
+        border-solid
+        border-4 
+        border-light-200
+        focus:outline-none 
+        focus:border-blue">
+        <option value="">Tous les modules</option>
+        {subjects.map((subject) => (
+          <option key={subject} value={subject}>
+            {subject}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+}

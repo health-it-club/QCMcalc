@@ -1,5 +1,5 @@
-import HowDoesItWorkLanding from "@/myComponents/HowDoesItwork/HowDoesItWorkLanding";
-import NavigationBar from "@/myComponents/navigation/navigationBar";
+import HowDoesItWorkLanding from "@/app/HowDoesItWork/HowDoesItWorkLanding";
+import NavigationBar from "@/AppComponents/navigation/navigationBar";
 
 export default function HowDoesItWork() {
   return (

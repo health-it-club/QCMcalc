@@ -1,4 +1,4 @@
-import Background from "../UI/background";
+import Background from "../../AppComponents/UI/background";
 
 export default function HowDoesItWorkLanding() {
   return (
