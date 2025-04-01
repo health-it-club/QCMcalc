@@ -1,11 +1,44 @@
+import { CustomAccodion } from "@/AppComponents/UI/CustomAccordion";
 import Background from "../../AppComponents/UI/background";
 
 export default function HowDoesItWorkLanding() {
   return (
     <div className="w-full">
       <Background />
-      <div className="relative z-10">
-        <h1>This is a test in How Does it work</h1>
+      <div className="relative z-10 flex justify-center items-center flex-col">
+        <h1 className="text-light md:text-2xl font-bold text-lg mt-4 mb-2 mx-10">
+          Comment fonctionne QCMcalc ?
+        </h1>
+        <p className="text-center mx-10 md:mx-30 text-light text-md md:text-lg">
+          QCMcalc est une plateforme intuitive développée par l’équipe du club
+          Health IT, permettant aux étudiants en médecine de calculer facilement
+          leur note aux QCM et d’accéder aux examens passés. Que vous souhaitiez
+          vérifier votre score, réviser ou tester vos connaissances, QCMcalc
+          vous offre une solution rapide et fiable pour faciliter votre
+          apprentissage.
+        </p>
+      </div>
+      <div className="relative z-10 flex justify-center items-center flex-col">
+        <h1 className="text-light md:text-2xl font-bold text-lg mt-4 mb-2 mx-10">
+          Les étapes pour utiliser QCMcalc
+        </h1>
+        <p className="text-center mx-10 md:mx-30 text-light text-md md:text-lg">
+          <b>1- Sélectionnez un examen</b> en choisissant l’année et le module
+          concerné.
+        </p>
+        <p className="text-center mx-10 md:mx-30 text-light text-md md:text-lg">
+          <b>2- Remplissez votre QCM</b> en répondant aux questions.
+        </p>
+        <p className="text-center mx-10 md:mx-30 text-light text-md md:text-lg">
+          <b>3- Soumettez vos réponses</b> pour obtenir votre note
+          automatiquement.
+        </p>
+      </div>
+      <div className="relative z-10 flex justify-center items-center flex-col">
+        <h1 className="text-light md:text-2xl font-bold text-lg mt-4 mb-2 mx-10">
+          FAQ - Questions Fréquentes
+        </h1>
+        <CustomAccodion />
       </div>
     </div>
   );

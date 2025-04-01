@@ -52,7 +52,7 @@ export default function YearSelector({
         id="yearSelector"
         value={selectedYear}
         onChange={handleChange}
-        className="w-10/12 p-4 text-sm md:text-xl bg-light rounded-full text-center text-dark
+        className="w-8/12 p-4 text-sm md:text-xl bg-light rounded-full text-center text-dark
         appearance-none 
         [-moz-appearance:textfield] 
         [&::-webkit-inner-spin-button]:appearance-none 
