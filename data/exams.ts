@@ -4,6 +4,8 @@ export interface ExamPreset {
   description: string
   year: string
   subject: string
+  grade?: string     // Added grade field (academic year level)
+  speciality?: string // Added speciality field
   numQuestions: number
   testType: "QCSs" | "allOrNothing" | "partiallyNegative" | "partiallyPositive"
   correctAnswers: Record<number | string, string[]>
@@ -14,6 +16,7 @@ let examCache: ExamPreset[] | null = null
 
 // Load exams from JSON file
 export async function loadExams(): Promise<ExamPreset[]> {
+  let examCache
   // Return cached data if available
   if (examCache) {
     return examCache
@@ -25,8 +28,7 @@ export async function loadExams(): Promise<ExamPreset[]> {
       throw new Error(`Failed to fetch exams: ${response.status}`)
     }
     const data = await response.json()
-    let examCache
-    examCache = data.exams || [] // Ensure we always have an array
+    examCache = data.exams || [] // Ensure we always have an arra
     return examCache
   } catch (error) {
     console.error("Error loading exams:", error)
@@ -48,13 +50,33 @@ export async function getUniqueSubjects(): Promise<string[]> {
   return Array.from(subjects).sort()
 }
 
-// Filter exams by year and/or subject
-export async function getFilteredExams(year?: string, subject?: string): Promise<ExamPreset[]> {
+// Get unique grades from exams
+export async function getUniqueGrades(): Promise<string[]> {
+  const exams = await loadExams()
+  const grades = new Set(exams.filter(exam => exam.grade).map(exam => exam.grade as string))
+  return Array.from(grades).sort()
+}
+
+// Get unique specialities from exams
+export async function getUniqueSpecialities(): Promise<string[]> {
+  const exams = await loadExams()
+  const specialities = new Set(exams.filter(exam => exam.speciality).map(exam => exam.speciality as string))
+  return Array.from(specialities).sort()
+}
+
+// Filter exams by year, subject, grade, and/or speciality
+export async function getFilteredExams(
+  year?: string, 
+  subject?: string, 
+  grade?: string, 
+  speciality?: string
+): Promise<ExamPreset[]> {
   const exams = await loadExams()
   return exams.filter((exam) => {
     const yearMatch = !year || exam.year === year
     const subjectMatch = !subject || exam.subject === subject
-    return yearMatch && subjectMatch
+    const gradeMatch = !grade || exam.grade === grade
+    const specialityMatch = !speciality || exam.speciality === speciality
+    return yearMatch && subjectMatch && gradeMatch && specialityMatch
   })
 }
-

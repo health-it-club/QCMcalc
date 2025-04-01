@@ -1,32 +1,38 @@
 "use client";
 
 import { useEffect, useState, type ChangeEvent } from "react";
-import { getUniqueYears } from "@/data/exams";
+import { getUniqueSpecialities } from "@/data/exams";
 
-interface YearSelectorProps {
-  selectedYear: string;
-  onChange: (year: string) => void;
+interface SpecialitySelectorProps {
+  selectedSpeciality: string;
+  onChange: (speciality: string) => void;
 }
 
-export default function YearSelector({
-  selectedYear,
+export default function SpecialitySelector({
+  selectedSpeciality,
   onChange,
-}: YearSelectorProps) {
-  const [years, setYears] = useState<string[]>([]);
+}: SpecialitySelectorProps) {
+  const [specialities, setSpecialities] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchYears() {
+    async function fetchSpecialities() {
       try {
-        const uniqueYears = await getUniqueYears();
-        setYears(uniqueYears);
+        const uniqueSpecialities = await getUniqueSpecialities();
+        setSpecialities(
+          uniqueSpecialities.length > 0
+            ? uniqueSpecialities
+            : ["Médecine", "Pharmacie", "Chirurgie Dentaire"]
+        );
       } catch (error) {
-        console.error("Error fetching years:", error);
+        console.error("Error fetching specialities:", error);
+        // Fallback to default specialities if fetch fails
+        setSpecialities(["Médecine", "Pharmacie", "Chirurgie Dentaire"]);
       } finally {
         setLoading(false);
       }
     }
-    fetchYears();
+    fetchSpecialities();
   }, []);
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -36,7 +42,7 @@ export default function YearSelector({
   if (loading) {
     return (
       <div className="flex flex-col items-center my-3">
-        <p>Chargement des années...</p>
+        <p>Chargement des spécialités...</p>
       </div>
     );
   }
@@ -44,13 +50,13 @@ export default function YearSelector({
   return (
     <div className="flex flex-col items-center mb-1.5">
       <label
-        htmlFor="yearSelector"
+        htmlFor="specialitySelector"
         className="text-md md:text-xl font-bold mt-4 mb-2 text-center">
-        Année d'examen
+        Spécialité
       </label>
       <select
-        id="yearSelector"
-        value={selectedYear}
+        id="specialitySelector"
+        value={selectedSpeciality}
         onChange={handleChange}
         className="w-8/12 p-4 text-sm md:text-xl font-semibold bg-light rounded-full text-center text-dark
         appearance-none 
@@ -64,10 +70,10 @@ export default function YearSelector({
         border-light-200
         focus:outline-none 
         focus:border-blue">
-        <option value="">Toutes les années</option>
-        {years.map((year) => (
-          <option key={year} value={year}>
-            {year}
+        <option value="">Toutes les spécialités</option>
+        {specialities.map((speciality) => (
+          <option key={speciality} value={speciality}>
+            {speciality}
           </option>
         ))}
       </select>

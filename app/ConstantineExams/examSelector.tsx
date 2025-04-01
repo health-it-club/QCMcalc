@@ -42,7 +42,7 @@ export default function SubjectSelector({
   }
 
   return (
-    <div className="flex flex-col items-center my-6">
+    <div className="flex flex-col items-center mb-1.5">
       <label
         htmlFor="subjectSelector"
         className="text-md md:text-xl font-bold mt-4 mb-2 text-center">
@@ -52,7 +52,7 @@ export default function SubjectSelector({
         id="subjectSelector"
         value={selectedSubject}
         onChange={handleChange}
-        className="w-8/12 p-4 text-sm md:text-xl bg-light rounded-full text-center text-dark
+        className="w-8/12 p-4 text-sm md:text-xl font-semibold bg-light rounded-full text-center text-dark
         appearance-none 
         [-moz-appearance:textfield] 
         [&::-webkit-inner-spin-button]:appearance-none 
