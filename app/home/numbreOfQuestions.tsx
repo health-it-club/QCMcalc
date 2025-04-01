@@ -37,13 +37,12 @@ export default function NumbreOfQuestions({
         placeholder=""
         inputMode="numeric"
         onChange={handleChange}
-        className="w-10/12 p-4 text-xs md:text-xl bg-light rounded-full text-center text-dark
+        className="w-8/12 p-4 text-xs md:text-xl bg-light rounded-full text-center text-dark
           appearance-none 
           [-moz-appearance:textfield] 
           [&::-webkit-inner-spin-button]:appearance-none 
           [&::-webkit-outer-spin-button]:appearance-none
-          px-3 
-          py-2 
+          px-3 py-2
           border-solid
           border-4 
           border-light-200

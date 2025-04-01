@@ -132,7 +132,6 @@ export default function ExamForm({ exam, onBack }: PresetQuizFormProps) {
         <IconButton onClick={onBack}></IconButton>
         <span></span>
         <h2 className="text-4xl font-bold">{exam.name}</h2>
-        <div className="w-8"></div> {/* Spacer for centering */}
       </div>
 
       <div className="p-4 bg-light rounded-lg">
@@ -172,7 +171,7 @@ export default function ExamForm({ exam, onBack }: PresetQuizFormProps) {
         {Array.from({ length: exam.numQuestions }, (_, i) => (
           <div
             key={`user-${i + 1}`}
-            className="answer-group md:gap-2 md:mb-6 flex flex-col md:mx-30">
+            className="answer-group md:gap-2 md:mb-6 flex flex-col md:mx-50">
             <p className="font-base text-center mt-3 mb-2">
               <b>Question {i + 1}</b> <em>(Sélectionnez votre réponse)</em>
             </p>
