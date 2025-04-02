@@ -1,15 +1,19 @@
 {
-  Remove all accessory text after finishing
-        "id": "cardio-resp-M22-2025", must be unique in the format of: 'module-promo-année'
-        "name": "Unité Cardio-Respiratoire 2025", must be unique in the format of: 'module année'
-        "description": "Controle d'Unité Cardio-Respiratoire 2025", in the format of: 'Controle de module année'
-        "speciality": "Médecine", must be strictly one of the following: Médecine | Pharmacie | Chirurgie Dentaire
-        "grade": "3ème année", must be strictly one of the following: "1ère année" | "2ème année" | "3ème année" | "4ème année" | "5ème année" | "6ème année" | "Résidanat" 
-        "year": "2025", the year of the exam
-        "subject": "Cardio-Respiratoire", the module name
-        "numQuestions": 40, the number of questions
-        "testType": "partiallyNegative", must be strictly one of the following: QCSs | allOrNothing | partiallyPositive | partiallyNegative NB: partiallyPositive is "systeme americain"
+  أي حاجة ورا الفاصلة و بين قوصين نحيه ، بدل برك الحاجة لي ورا زوج نقاط
+  مثلا فالسطر اللول متبدل id بدل الكتيبة لي وراه
+  فالسطر الثاني متقيسش "name" بدل الكتيبة لي وراه
+  
+        "id": "cardio-resp-M22-2025", (must be unique in the format of: 'module-promo-année')
+        "name": "Unité Cardio-Respiratoire 2025", (must be unique in the format of: 'module année')
+        "description": "Controle d'Unité Cardio-Respiratoire 2025", (in the format of: 'Controle de module année')
+        "speciality": "Médecine", (must be strictly one of the following: Médecine | Pharmacie | Chirurgie Dentaire)
+        "grade": "3ème année", (must be strictly one of the following: "1ère année" | "2ème année" | "3ème année" | "4ème année" | "5ème année" | "6ème année" | "Résidanat" )
+        "year": "2025", (the year of the exam)
+        "subject": "Cardio-Respiratoire", (the module name)
+        "numQuestions": 40, (the number of questions)
+        "testType": "partiallyNegative", (must be strictly one of the following: QCSs | allOrNothing | partiallyPositive | partiallyNegative NB: partiallyPositive is "systeme americain")
         "correctAnswers": {
+          نحي الأجوبة الغالطين و خلي الصحاح، نحي الحرف بيه بالفاصلة لي لاصقة فيه بال"" تاعو
         "1":  ["A", "B", "C", "D", "E"],
         "2":  ["A", "B", "C", "D", "E"],
         "3":  ["A", "B", "C", "D", "E"],
