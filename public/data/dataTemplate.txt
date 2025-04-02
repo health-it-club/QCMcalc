@@ -1,11 +1,14 @@
 {
-        "id": "module-MXX-xeme",
-        "name": "U01: année",
-        "description": "Controle d'Unité module année",
-        "year": "xème année",
-        "subject": "module-module",
-        "numQuestions": 1,
-        "testType": "partiallyNegative",
+  Remove all accessory text after finishing
+        "id": "cardio-resp-M22-2025", must be unique in the format of: 'module-promo-année'
+        "name": "Unité Cardio-Respiratoire 2025", must be unique in the format of: 'module année'
+        "description": "Controle d'Unité Cardio-Respiratoire 2025", in the format of: 'Controle de module année'
+        "speciality": "Médecine", must be strictly one of the following: Médecine | Pharmacie | Chirurgie Dentaire
+        "grade": "3ème année", must be strictly one of the following: "1ère année" | "2ème année" | "3ème année" | "4ème année" | "5ème année" | "6ème année" | "Résidanat" 
+        "year": "2025", the year of the exam
+        "subject": "Cardio-Respiratoire", the module name
+        "numQuestions": 40, the number of questions
+        "testType": "partiallyNegative", must be strictly one of the following: QCSs | allOrNothing | partiallyPositive | partiallyNegative NB: partiallyPositive is "systeme americain"
         "correctAnswers": {
         "1":  ["A", "B", "C", "D", "E"],
         "2":  ["A", "B", "C", "D", "E"],
