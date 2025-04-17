@@ -20,6 +20,7 @@ export default function Calculator({
   const [result, setResult] = useState<{
     totalScore: number;
     grade: number;
+    countedQuestions: number;
   } | null>(null);
 
   //Checkbox Handler
@@ -114,17 +115,18 @@ export default function Calculator({
     for (let i = 1; i <= numQuestions; i++) {
       const correctAns = correctAnswers[i] || [];
       const userAns = userAnswers[i] || [];
-      let questionScore = 0;
-      const numCorrectAnswers = correctAns.length;
 
-      // Skip if no correct answers defined or if the question is empty
-      if (numCorrectAnswers === 0) continue;
+      // Skip if no correct answers defined
+      if (correctAns.length === 0) continue;
 
       // Count this as a valid question
       countedQuestions++;
 
+      let questionScore = 0;
+      const numCorrectAnswers = correctAns.length;
+
       switch (testType) {
-        // QCS now gives credit if at least one correct answer is selected
+        // QCS gives credit if at least one correct answer is selected
         case "QCSs":
           // Check if user has selected at least one correct answer
           if (userAns.some((answer) => correctAns.includes(answer))) {
@@ -134,16 +136,20 @@ export default function Calculator({
           }
           break;
 
-        // allOrNothing still requires exact match
+        // allOrNothing requires all correct answers and nothing else
         case "allOrNothing":
-          if (arraysEqual(correctAns, userAns)) {
+          // Check if user selected all correct answers and nothing else
+          if (
+            correctAns.every((answer) => userAns.includes(answer)) &&
+            userAns.every((answer) => correctAns.includes(answer))
+          ) {
             questionScore = 1;
           } else {
             questionScore = 0;
           }
           break;
 
-        //Systeme americain
+        // Systeme americain
         case "partiallyPositive":
           for (const answer of userAns) {
             if (correctAns.includes(answer)) {
@@ -154,7 +160,7 @@ export default function Calculator({
           }
           break;
 
-        //Systeme de constantine
+        // Systeme de constantine
         case "partiallyNegative":
           for (const answer of userAns) {
             if (correctAns.includes(answer)) {
@@ -167,7 +173,6 @@ export default function Calculator({
           break;
       }
 
-      //Nombre de questions corrected
       totalScore += Math.max(questionScore, 0);
     }
 
@@ -175,10 +180,11 @@ export default function Calculator({
     const gradePerQuestion = countedQuestions > 0 ? 20 / countedQuestions : 0;
     const grade = totalScore * gradePerQuestion;
 
-    //Les resultats
+    // Les resultats
     setResult({
       totalScore,
       grade,
+      countedQuestions, // Added countedQuestions to be consistent with the first component
     });
   };
 
