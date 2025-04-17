@@ -109,6 +109,7 @@ export default function Calculator({
   //The actual Calculator
   const calculateGrade = () => {
     let totalScore = 0;
+    let countedQuestions = 0;
 
     for (let i = 1; i <= numQuestions; i++) {
       const correctAns = correctAnswers[i] || [];
@@ -116,11 +117,24 @@ export default function Calculator({
       let questionScore = 0;
       const numCorrectAnswers = correctAns.length;
 
-      if (numCorrectAnswers === 0) continue; // Skip if no correct answers defined
+      // Skip if no correct answers defined or if the question is empty
+      if (numCorrectAnswers === 0) continue;
+
+      // Count this as a valid question
+      countedQuestions++;
 
       switch (testType) {
-        //QCSs et tt ou rien sont la meme chose
+        // QCS now gives credit if at least one correct answer is selected
         case "QCSs":
+          // Check if user has selected at least one correct answer
+          if (userAns.some((answer) => correctAns.includes(answer))) {
+            questionScore = 1;
+          } else {
+            questionScore = 0;
+          }
+          break;
+
+        // allOrNothing still requires exact match
         case "allOrNothing":
           if (arraysEqual(correctAns, userAns)) {
             questionScore = 1;
@@ -157,8 +171,8 @@ export default function Calculator({
       totalScore += Math.max(questionScore, 0);
     }
 
-    //La note sur 20
-    const gradePerQuestion = 20 / numQuestions;
+    // Calculate grade based on counted questions instead of total questions
+    const gradePerQuestion = countedQuestions > 0 ? 20 / countedQuestions : 0;
     const grade = totalScore * gradePerQuestion;
 
     //Les resultats
@@ -231,7 +245,11 @@ export default function Calculator({
             </h1>
             <h5 className="text-xl text-center mb-5">
               Nombre de réponses correctes: {result.totalScore.toFixed(2)} sur{" "}
-              {numQuestions}
+              {
+                Object.keys(correctAnswers).filter(
+                  (key) => correctAnswers[Number(key)]?.length > 0
+                ).length
+              }
             </h5>
           </div>
         )}
