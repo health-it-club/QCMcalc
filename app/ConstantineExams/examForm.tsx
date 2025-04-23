@@ -74,84 +74,92 @@ export default function ExamForm({ exam, onBack }: PresetQuizFormProps) {
     return a.every((val) => b.includes(val));
   };
 
-  // For the first file (ExamForm.tsx)
   const calculateGrade = () => {
     let totalScore = 0;
     let countedQuestions = 0;
 
-    // Convert numQuestions to a number if it's a string
     const numQuestionsInt =
       typeof exam.numQuestions === "string"
         ? Number.parseInt(exam.numQuestions, 10)
         : exam.numQuestions;
 
     for (let i = 1; i <= numQuestionsInt; i++) {
-      const correctAns = exam.correctAnswers[i] || [];
+      const possibleAnswerSets = exam.correctAnswers[i] || [[]];
       const userAns = userAnswers[i] || [];
 
-      // Skip if no correct answers defined or if user didn't answer
-      if (correctAns.length === 0) continue;
+      if (possibleAnswerSets[0].length === 0) continue;
 
-      // Count this as a valid question
       countedQuestions++;
-
       let questionScore = 0;
-      const numCorrectAnswers = correctAns.length;
 
       switch (exam.testType) {
-        // QCS gives credit if at least one correct answer is selected
         case "QCSs":
-          // Check if user has selected at least one correct answer
-          if (userAns.some((answer) => correctAns.includes(answer))) {
+          // Accept if any answer matches any answer set
+          if (
+            possibleAnswerSets.some((correctSet) =>
+              userAns.some((answer) => correctSet.includes(answer))
+            )
+          ) {
             questionScore = 1;
-          } else {
-            questionScore = 0;
           }
           break;
 
-        // allOrNothing requires all correct answers and nothing else
         case "allOrNothing":
-          // Check if user selected all correct answers and nothing else
+          // Accept if answers exactly match any answer set
           if (
-            correctAns.every((answer) => userAns.includes(answer)) &&
-            userAns.every((answer) => correctAns.includes(answer))
+            possibleAnswerSets.some(
+              (correctSet) =>
+                correctSet.length === userAns.length &&
+                correctSet.every((answer) => userAns.includes(answer)) &&
+                userAns.every((answer) => correctSet.includes(answer))
+            )
           ) {
             questionScore = 1;
-          } else {
-            questionScore = 0;
           }
           break;
 
         case "partiallyPositive":
-          for (const answer of userAns) {
-            if (correctAns.includes(answer)) {
-              questionScore += 1 / numCorrectAnswers;
-            } else {
-              questionScore -= 1 / numCorrectAnswers;
-            }
-          }
+          // Use the most favorable answer set for scoring
+          questionScore = Math.max(
+            ...possibleAnswerSets.map((correctSet) => {
+              let score = 0;
+              for (const answer of userAns) {
+                if (correctSet.includes(answer)) {
+                  score += 1 / correctSet.length;
+                } else {
+                  score -= 1 / correctSet.length;
+                }
+              }
+              return score;
+            })
+          );
           break;
 
         case "partiallyNegative":
-          for (const answer of userAns) {
-            if (correctAns.includes(answer)) {
-              questionScore += 1 / numCorrectAnswers;
-            } else {
-              questionScore = 0;
-              break;
-            }
-          }
+          // Use the most favorable answer set for scoring
+          questionScore = Math.max(
+            ...possibleAnswerSets.map((correctSet) => {
+              let score = 0;
+              for (const answer of userAns) {
+                if (correctSet.includes(answer)) {
+                  score += 1 / correctSet.length;
+                } else {
+                  score = 0;
+                  break;
+                }
+              }
+              return score;
+            })
+          );
           break;
       }
 
       totalScore += Math.max(questionScore, 0);
     }
 
-    // Calculate grade based on counted questions instead of total questions
     const gradePerQuestion = countedQuestions > 0 ? 20 / countedQuestions : 0;
     const grade = totalScore * gradePerQuestion;
 
-    // Store countedQuestions in the result
     setResult({
       totalScore,
       grade,

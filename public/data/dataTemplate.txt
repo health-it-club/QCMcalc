@@ -14,7 +14,7 @@
         "testType": "partiallyNegative", (must be strictly one of the following: QCSs | allOrNothing | partiallyPositive | partiallyNegative NB: partiallyPositive is "systeme americain")
         "correctAnswers": {
           نحي الأجوبة الغالطين و خلي الصحاح، نحي الحرف بيه بالفاصلة لي لاصقة فيه بال"" تاعو
-        "1":  ["A", "B", "C", "D", "E"],
+        "1":  [["A"], ["B", "C"]], in this example both "A" and "BC" will be checked as correct answers
         "2":  ["A", "B", "C", "D", "E"],
         "3":  ["A", "B", "C", "D", "E"],
         "4":  ["A", "B", "C", "D", "E"],
