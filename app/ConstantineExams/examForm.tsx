@@ -169,35 +169,44 @@ export default function ExamForm({ exam, onBack }: PresetQuizFormProps) {
 
   return (
     <div className="w-full p-1">
-      <div className="flex justify-between items-center mb-4 px-4">
+      <div className="flex items-center mb-4 px-4">
         <IconButton onClick={onBack}></IconButton>
-        <span></span>
-        <h2 className="text-4xl font-bold">{exam.name}</h2>
+        <h2 className="text-4xl font-bold ml-4">{exam.name}</h2>
       </div>
 
       <div className="p-4 bg-light rounded-lg">
         <p className="px-2 py-1 text-lg font-semibold text-dark">
           <strong>Description:</strong> {exam.description}
         </p>
-        <p className="px-2 py-1 text-base text-dark">
-          <strong>Année:</strong> {exam.year}
-        </p>
+
         <p className="px-2 py-1 text-base text-dark">
           <strong>Module:</strong> {exam.subject}
         </p>
-        <p className="px-2 py-1 text-sm text-dark">
-          <strong>Nombre de questions:</strong> {exam.numQuestions}
+        <p className="px-2 py-1 text-base text-dark">
+          <strong>Nombre de Questions:</strong> {exam.numQuestions}
         </p>
-        <div className="flex flex-wrap gap-2 mb-2">
-          <p className="p-2 py-1 bg-yellow-300 rounded-full text-sm text-dark">
-            {exam.testType === "QCSs"
-              ? "QCS (Question à choix simple)"
-              : exam.testType === "allOrNothing"
-              ? "QCM Tout ou Rien"
-              : exam.testType === "partiallyNegative"
-              ? "QCM Partielle"
-              : "QCM Système Américain"}
-          </p>
+        <div className="flex flex-wrap gap-2 mt-2">
+          <div className="flex flex-wrap gap-2 mb-2">
+            <p className="p-2 py-1 bg-yellow-300 rounded-full text-sm text-dark">
+              {exam.year}
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-2 mb-2">
+            <p className="p-2 py-1 bg-yellow-300 rounded-full text-sm text-dark">
+              {exam.speciality}
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-2 mb-2">
+            <p className="p-2 py-1 bg-yellow-300 rounded-full text-sm text-dark">
+              {exam.testType === "QCSs"
+                ? "QCS (Question à choix simple)"
+                : exam.testType === "allOrNothing"
+                ? "QCM Tout ou Rien"
+                : exam.testType === "partiallyNegative"
+                ? "QCM Partielle"
+                : "QCM Système Américain"}
+            </p>
+          </div>
         </div>
       </div>
 

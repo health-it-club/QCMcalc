@@ -10,7 +10,7 @@ export function CustomAccodion() {
     <Accordion
       type="single"
       collapsible
-      className="w-8/12 bg-light/90 p-5 rounded-4xl my-5">
+      className="md:w-8/12 md:mx-0 mx-2 my-5">
       <AccordionItem value="item-1">
         <AccordionTrigger>
           Est-ce que l’utilisation de QCMcalc est gratuite ?

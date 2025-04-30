@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { type ExamPreset, getFilteredExams } from "@/data/exams";
 import YearSelector from "./yearSelector";
-import SubjectSelector from "./examSelector";
 import GradeSelector from "./gradeSelector";
 import SpecialitySelector from "./specialitySelector";
 import Background from "@/AppComponents/UI/background";
@@ -11,24 +10,29 @@ import PresetQuizForm from "./examForm";
 
 export default function ExamPageContent() {
   const [selectedYear, setSelectedYear] = useState<string>("");
-  const [selectedSubject, setSelectedSubject] = useState<string>("");
   const [selectedGrade, setSelectedGrade] = useState<string>("");
   const [selectedSpeciality, setSelectedSpeciality] = useState<string>("");
   const [selectedExam, setSelectedExam] = useState<ExamPreset | null>(null);
   const [filteredExams, setFilteredExams] = useState<ExamPreset[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Use useEffect to update filtered exams when selections change
   useEffect(() => {
     async function updateFilteredExams() {
       setLoading(true);
       try {
+        console.log("Filtering with:", {
+          year: selectedYear,
+          grade: selectedGrade,
+          speciality: selectedSpeciality,
+        });
+
         const exams = await getFilteredExams(
           selectedYear,
-          selectedSubject,
           selectedGrade,
           selectedSpeciality
         );
+
+        console.log("Filtered exams:", exams);
         setFilteredExams(exams);
       } catch (error) {
         console.error("Error filtering exams:", error);
@@ -37,14 +41,10 @@ export default function ExamPageContent() {
       }
     }
     updateFilteredExams();
-  }, [selectedYear, selectedSubject, selectedGrade, selectedSpeciality]);
+  }, [selectedYear, selectedGrade, selectedSpeciality]);
 
   const handleYearChange = (year: string) => {
     setSelectedYear(year);
-  };
-
-  const handleSubjectChange = (subject: string) => {
-    setSelectedSubject(subject);
   };
 
   const handleGradeChange = (grade: string) => {
@@ -79,10 +79,7 @@ export default function ExamPageContent() {
                 selectedYear={selectedYear}
                 onChange={handleYearChange}
               />
-              <SubjectSelector
-                selectedSubject={selectedSubject}
-                onChange={handleSubjectChange}
-              />
+
               <GradeSelector
                 selectedGrade={selectedGrade}
                 onChange={handleGradeChange}

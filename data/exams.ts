@@ -47,13 +47,6 @@ export async function getUniqueYears(): Promise<string[]> {
     .sort((a, b) => b.localeCompare(a)); // Sort descending (newest first)
 }
 
-// Get unique subjects from exams
-export async function getUniqueSubjects(): Promise<string[]> {
-  const exams = await loadExams();
-  const subjects = new Set(exams.map((exam) => exam.subject));
-  return Array.from(subjects).sort();
-}
-
 // Get unique grades from exams
 export async function getUniqueGrades(): Promise<string[]> {
   const exams = await loadExams();
@@ -75,18 +68,24 @@ export async function getUniqueSpecialities(): Promise<string[]> {
 }
 
 // Filter exams by year, subject, grade, and/or speciality
-export async function getFilteredExams(
-  year?: string,
-  subject?: string,
-  grade?: string,
-  speciality?: string
-): Promise<ExamPreset[]> {
-  const exams = await loadExams();
-  return exams.filter((exam) => {
-    const yearMatch = !year || exam.year === year;
-    const subjectMatch = !subject || exam.subject === subject;
-    const gradeMatch = !grade || exam.grade === grade;
-    const specialityMatch = !speciality || exam.speciality === speciality;
-    return yearMatch && subjectMatch && gradeMatch && specialityMatch;
-  });
-}
+export const getFilteredExams = async (
+  year: string,
+  grade: string,
+  speciality: string
+): Promise<ExamPreset[]> => {
+  try {
+    const response = await fetch("/data/exams.json");
+    const data = await response.json();
+
+    return data.exams.filter((exam: ExamPreset) => {
+      const yearMatch = !year || exam.year.toString() === year;
+      const gradeMatch = !grade || exam.grade === grade;
+      const specialityMatch = !speciality || exam.speciality === speciality;
+
+      return yearMatch && gradeMatch && specialityMatch;
+    });
+  } catch (error) {
+    console.error("Error filtering exams:", error);
+    return [];
+  }
+};

@@ -35,8 +35,6 @@ export function NavDropdownMenu() {
             <DropdownMenuItem>Contactez Nous</DropdownMenuItem>
           </Link>
         </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem disabled>API</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
