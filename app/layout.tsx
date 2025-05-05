@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "QCMcalc By Health IT",
-  description: "QCMsCalc By Health IT",
+  description: "QCMCalc By Health IT",
 };
 
 export default function RootLayout({

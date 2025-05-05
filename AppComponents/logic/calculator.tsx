@@ -236,7 +236,7 @@ export default function Calculator({
         {result && (
           <div
             id="result"
-            className={`mt-8 py-30 w-full ${
+            className={`mt-8 py-30 w-full h-full ${
               result.grade >= 10
                 ? "bg-green-500"
                 : result.grade < 10
