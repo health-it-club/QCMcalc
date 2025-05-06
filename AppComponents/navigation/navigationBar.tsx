@@ -11,9 +11,9 @@ export default function NavigationBar() {
     <div className="w-full bg-dark/5 border-b-1 border-solid lborder-light-800 backdrop-blur-md">
       <nav className="p-4 flex flex-row justify-between items-center my-1">
         <div className="">
-          <a href="/">
+          <Link href="/">
             <HITlogo />
-          </a>
+          </Link>
         </div>
         <div
           className="hidden font-semibold text-xs flex-row space-x-6 px-5 font-Inter text-light-200 
