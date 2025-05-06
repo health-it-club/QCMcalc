@@ -28,7 +28,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "app/ConstantineExams/examForm.jsx",
-    "next.config.mjs"
+    "next.config.mjs",
+    "data/exams.js"
   ],
   "exclude": ["node_modules"]
 }
