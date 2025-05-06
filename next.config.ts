@@ -1,12 +1,12 @@
-import { output } from "motion/react-client";
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  /* config options here */
-};
-
-module.exports = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   output: "export",
+  // For example, if your repo is "username/my-nextjs-app", set basePath: '/my-nextjs-app'
+  basePath: process.env.NODE_ENV === "production" ? "/QCMcalc" : "",
+  // If you're using images, you might need to adjust this
+  images: {
+    unoptimized: true,
+  },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
