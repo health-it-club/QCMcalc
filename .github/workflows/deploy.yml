@@ -5,8 +5,9 @@ on:
     branches: ["main"]
   workflow_dispatch:
 
+# Update permissions to allow writing to the repository
 permissions:
-  contents: read
+  contents: write # This is the key change - we need write access to push to gh-pages
   pages: write
   id-token: write
 
@@ -36,8 +37,6 @@ jobs:
       - name: Build with Next.js
         run: npm run build
 
-      # Instead of using upload-artifact and deploy-pages separately,
-      # use a direct approach to deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
