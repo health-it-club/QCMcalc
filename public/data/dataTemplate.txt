@@ -1,0 +1,58 @@
+{
+  أي حاجة ورا الفاصلة و بين قوصين نحيه ، بدل برك الحاجة لي ورا زوج نقاط
+  مثلا فالسطر اللول متبدل id بدل الكتيبة لي وراه
+  فالسطر الثاني متقيسش "name" بدل الكتيبة لي وراه
+  
+        "id": "cardio-resp-M22-2025", (must be unique in the format of: 'module-promo-année')
+        "name": "Unité Cardio-Respiratoire 2025", (must be unique in the format of: 'module année')
+        "description": "Controle d'Unité Cardio-Respiratoire 2025", (in the format of: 'Controle de module année')
+        "speciality": "Médecine", (must be strictly one of the following: Médecine | Pharmacie | Chirurgie Dentaire)
+        "grade": "3ème année", (must be strictly one of the following: "1ère année" | "2ème année" | "3ème année" | "4ème année" | "5ème année" | "6ème année" | "Résidanat" )
+        "year": "2025", (the year of the exam)
+        "subject": "Cardio-Respiratoire", (the module name)
+        "numQuestions": 40, (the number of questions)
+        "testType": "partiallyNegative", (must be strictly one of the following: QCSs | allOrNothing | partiallyPositive | partiallyNegative NB: partiallyPositive is "systeme americain")
+        "correctAnswers": {
+          نحي الأجوبة الغالطين و خلي الصحاح، نحي الحرف بيه بالفاصلة لي لاصقة فيه بال"" تاعو
+        "1":  [["A"], ["B", "C"]], in this example both "A" and "BC" will be checked as correct answers
+        "2":  ["A", "B", "C", "D", "E"],
+        "3":  ["A", "B", "C", "D", "E"],
+        "4":  ["A", "B", "C", "D", "E"],
+        "5":  ["A", "B", "C", "D", "E"],
+        "6":  ["A", "B", "C", "D", "E"],
+        "7":  ["A", "B", "C", "D", "E"],
+        "8":  ["A", "B", "C", "D", "E"],
+        "9":  ["A", "B", "C", "D", "E"],
+        "10": ["A", "B", "C", "D", "E"],
+        "11": ["A", "B", "C", "D", "E"],
+        "12": ["A", "B", "C", "D", "E"],
+        "13": ["A", "B", "C", "D", "E"],
+        "14": ["A", "B", "C", "D", "E"],
+        "15": ["A", "B", "C", "D", "E"],
+        "16": ["A", "B", "C", "D", "E"],
+        "17": ["A", "B", "C", "D", "E"],
+        "18": ["A", "B", "C", "D", "E"],
+        "19": ["A", "B", "C", "D", "E"],
+        "20": ["A", "B", "C", "D", "E"],
+        "21": ["A", "B", "C", "D", "E"],
+        "22": ["A", "B", "C", "D", "E"],
+        "23": ["A", "B", "C", "D", "E"],
+        "24": ["A", "B", "C", "D", "E"],
+        "25": ["A", "B", "C", "D", "E"],
+        "26": ["A", "B", "C", "D", "E"],
+        "27": ["A", "B", "C", "D", "E"],
+        "28": ["A", "B", "C", "D", "E"],
+        "29": ["A", "B", "C", "D", "E"],
+        "30": ["A", "B", "C", "D", "E"],
+        "31": ["A", "B", "C", "D", "E"],
+        "32": ["A", "B", "C", "D", "E"],
+        "33": ["A", "B", "C", "D", "E"],
+        "34": ["A", "B", "C", "D", "E"],
+        "35": ["A", "B", "C", "D", "E"],
+        "36": ["A", "B", "C", "D", "E"],
+        "37": ["A", "B", "C", "D", "E"],
+        "38": ["A", "B", "C", "D", "E"],
+        "39": ["A", "B", "C", "D", "E"],
+        "40": ["A", "B", "C", "D", "E"]
+        }
+      }
