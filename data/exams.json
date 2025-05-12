@@ -794,6 +794,49 @@
         "32": [["B", "C", "E"]],
         "33": [["B", "C"]]
       }
+    },
+    {
+      "id": "Patho-D23-2025",
+      "name": "Module Pathologie et Chirurgie Buccale 2025",
+      "description": "Controle de Module Pathologie et Chirurgie Buccale 2025",
+      "speciality": "Chirurgie Dentaire",
+      "grade": "2ème année",
+      "year": "2025",
+      "subject": "Pathologie et Chirurgie Buccale",
+      "numQuestions": 30,
+      "testType": "partiallyNegative",
+      "correctAnswers": {
+        "1": [["A", "B", "C"]],
+        "2": [["A", "B"]],
+        "3": [["A", "B"]],
+        "4": [["B", "D"]],
+        "5": [["D"]],
+        "6": [["B", "C"]],
+        "7": [["C"]],
+        "8": [["C"]],
+        "9": [["C", "D"]],
+        "10": [["D"]],
+        "11": [["C"]],
+        "12": [["C"]],
+        "13": [["A"]],
+        "14": [["B"]],
+        "15": [["C"]],
+        "16": [["C"]],
+        "17": [["B"]],
+        "18": [["B"]],
+        "19": [["C"]],
+        "20": [["B"]],
+        "21": [["A", "C"]],
+        "22": [["B", "D"]],
+        "23": [["B", "C"]],
+        "24": [["B", "C"]],
+        "25": [["B"]],
+        "26": [["A", "C"]],
+        "27": [["B"]],
+        "28": [["A", "B"]],
+        "29": [["A", "B"]],
+        "30": [["A", "B", "C"]]
+      }
     }
   ]
 }
