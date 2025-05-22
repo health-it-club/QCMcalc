@@ -11,7 +11,7 @@ export default function TypeSelector({
   selectedType,
   onChange,
 }: TypeSelectorProps) {
-  const types = ["clinique", "theorique"];
+  const types = ["Clinique", "Théorique"];
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     onChange(e.target.value);
@@ -22,7 +22,7 @@ export default function TypeSelector({
       <label
         htmlFor="typeSelector"
         className="text-md md:text-xl font-bold mt-4 mb-2 text-center">
-        Type
+        Type D'examen
       </label>
       <select
         id="typeSelector"

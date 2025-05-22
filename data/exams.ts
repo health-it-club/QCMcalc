@@ -11,6 +11,8 @@ export interface ExamPreset {
   correctAnswers: {
     [key: number]: string; // Format: "A,B,C|A,B,D" for multiple possible answers
   };
+  session: "Normal" | "Rattrapage";
+  type: "Théorique" | "Clinique";
 }
 
 // Cache for exam data
@@ -85,6 +87,8 @@ function validateExam(exam: any): ExamPreset {
     speciality: exam.speciality,
     grade: exam.grade,
     year,
+    type: exam.type,
+    session: exam.session,
     subject: exam.subject,
     numQuestions,
     testType: exam.testType as ExamPreset["testType"],

@@ -11,7 +11,7 @@ export default function SessionSelector({
   selectedSession,
   onChange,
 }: SessionSelectorProps) {
-  const sessions = ["normal", "rattrapage"];
+  const sessions = ["Normal", "Rattrapage"];
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     onChange(e.target.value);
