@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { type ExamPreset, getFilteredExams } from "@/data/exams";
+import { type ExamPreset } from "@/data/exams";
+import { getFilteredExams } from "@/AppComponents/logic/fetchExams";
 import YearSelector from "./yearSelector";
 import GradeSelector from "./gradeSelector";
 import SpecialitySelector from "./specialitySelector";

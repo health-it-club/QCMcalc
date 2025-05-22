@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, type ChangeEvent } from "react";
-import { getUniqueGrades } from "@/data/exams";
+import { getUniqueGrades } from "@/AppComponents/logic/fetchExams";
 
 interface GradeSelectorProps {
   selectedGrade: string;

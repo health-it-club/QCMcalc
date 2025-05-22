@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, type ChangeEvent } from "react";
-import { getUniqueSpecialities } from "@/data/exams";
+import { getUniqueSpecialities } from "@/AppComponents/logic/fetchExams";
 
 interface SpecialitySelectorProps {
   selectedSpeciality: string;
