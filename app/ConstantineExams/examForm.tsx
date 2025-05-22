@@ -10,6 +10,13 @@ interface PresetQuizFormProps {
   onBack: () => void;
 }
 
+// Helper function to parse answer strings into arrays
+const parseAnswerSets = (answerString: string): string[][] => {
+  if (!answerString) return [[]];
+  // Convert "A,B|A,C" into [["A", "B"], ["A", "C"]]
+  return answerString.split("|").map((set) => set.split(","));
+};
+
 export default function ExamForm({ exam, onBack }: PresetQuizFormProps) {
   const [userAnswers, setUserAnswers] = useState<Record<number, string[]>>({});
   const [result, setResult] = useState<{
@@ -84,17 +91,19 @@ export default function ExamForm({ exam, onBack }: PresetQuizFormProps) {
         : exam.numQuestions;
 
     for (let i = 1; i <= numQuestionsInt; i++) {
-      const possibleAnswerSets = exam.correctAnswers[i] || [[]];
-      const userAns = userAnswers[i] || [];
+      // Get answer string and parse it into arrays
+      const answerString = exam.correctAnswers[i] || "";
+      if (!answerString) continue;
 
-      if (possibleAnswerSets[0].length === 0) continue;
+      const possibleAnswerSets = parseAnswerSets(answerString);
+      const userAns = userAnswers[i] || [];
 
       countedQuestions++;
       let questionScore = 0;
 
       switch (exam.testType) {
         case "QCSs":
-          // Accept if any answer matches any answer set
+          // Accept if any user answer matches any correct answer in any set
           if (
             possibleAnswerSets.some((correctSet) =>
               userAns.some((answer) => correctSet.includes(answer))
@@ -105,7 +114,7 @@ export default function ExamForm({ exam, onBack }: PresetQuizFormProps) {
           break;
 
         case "allOrNothing":
-          // Accept if answers exactly match any answer set
+          // Accept if user answers exactly match any of the possible answer sets
           if (
             possibleAnswerSets.some(
               (correctSet) =>
@@ -119,14 +128,16 @@ export default function ExamForm({ exam, onBack }: PresetQuizFormProps) {
           break;
 
         case "partiallyPositive":
-          // Use the most favorable answer set for scoring
+          // Calculate partial credit for each answer set and use the highest score
           questionScore = Math.max(
             ...possibleAnswerSets.map((correctSet) => {
               let score = 0;
               for (const answer of userAns) {
                 if (correctSet.includes(answer)) {
+                  // Add points for correct answers
                   score += 1 / correctSet.length;
                 } else {
+                  // Subtract points for incorrect answers
                   score -= 1 / correctSet.length;
                 }
               }
@@ -136,7 +147,7 @@ export default function ExamForm({ exam, onBack }: PresetQuizFormProps) {
           break;
 
         case "partiallyNegative":
-          // Use the most favorable answer set for scoring
+          // Calculate partial credit but zero out score for any incorrect answer
           questionScore = Math.max(
             ...possibleAnswerSets.map((correctSet) => {
               let score = 0;
@@ -144,6 +155,7 @@ export default function ExamForm({ exam, onBack }: PresetQuizFormProps) {
                 if (correctSet.includes(answer)) {
                   score += 1 / correctSet.length;
                 } else {
+                  // Any wrong answer zeroes the score
                   score = 0;
                   break;
                 }

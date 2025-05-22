@@ -9,14 +9,14 @@ export interface ExamPreset {
   numQuestions: string | number;
   testType: "QCSs" | "allOrNothing" | "partiallyPositive" | "partiallyNegative";
   correctAnswers: {
-    [key: number]: string[][]; // Multiple answer sets
+    [key: number]: string; // Format: "A,B,C|A,B,D" for multiple possible answers
   };
 }
 
 // Cache for exam data
 let examCache: ExamPreset[] = [];
 
-// Import the JSON directly - this is the key change for GitHub Pages
+// Import the JSON directly
 import examsData from "./exams.json";
 
 // Type guard to validate testType
@@ -54,13 +54,26 @@ function validateExam(exam: any): ExamPreset {
   // Transform and validate year and numQuestions
   const year = exam.year?.toString() || "";
   const numQuestions = exam.numQuestions?.toString() || "";
-
   // Validate correctAnswers structure
   const correctAnswers: ExamPreset["correctAnswers"] = {};
   if (exam.correctAnswers && typeof exam.correctAnswers === "object") {
     Object.entries(exam.correctAnswers).forEach(([key, value]) => {
       if (Array.isArray(value) && value.every((arr) => Array.isArray(arr))) {
-        correctAnswers[parseInt(key)] = value as string[][];
+        // Convert array format to string format
+        const stringValue = value
+          .map((answerSet) => answerSet.join(","))
+          .join("|");
+        correctAnswers[parseInt(key)] = stringValue;
+      } else if (typeof value === "string") {
+        // If it's already in string format, validate it
+        const isValidFormat = value
+          .split("|")
+          .every((set) =>
+            set.split(",").every((answer) => /^[A-E]$/.test(answer))
+          );
+        if (isValidFormat) {
+          correctAnswers[parseInt(key)] = value;
+        }
       }
     });
   }
