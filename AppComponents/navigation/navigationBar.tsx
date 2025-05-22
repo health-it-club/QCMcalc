@@ -22,7 +22,7 @@ export default function NavigationBar() {
             Examens De Constantine
           </Link>
           <Link href="/HowDoesItWork" className="flex hover:text-light">
-            How Does it work
+            Comment Ça marche?
           </Link>
           <Link
             href="https://linktr.ee/Health._it"
