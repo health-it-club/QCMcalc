@@ -3,7 +3,7 @@ import Background from "../../AppComponents/UI/background";
 
 export default function HowDoesItWorkLanding() {
   return (
-    <div className="w-full font-semibold">
+    <div className="xl:w-6/12 font-semibold">
       <Background />
       <div className="relative z-10 flex justify-start items-center flex-col">
         <h1 className="text-yellow text-left md:text-2xl font-bold text-lg mt-4 mb-2 mx-10 ">

@@ -6,6 +6,8 @@ import { getFilteredExams } from "@/AppComponents/logic/fetchExams";
 import YearSelector from "./yearSelector";
 import GradeSelector from "./gradeSelector";
 import SpecialitySelector from "./specialitySelector";
+import SessionSelector from "./sessionSelector";
+import TypeSelector from "./typeSelector";
 import Background from "@/AppComponents/UI/background";
 import PresetQuizForm from "./examForm";
 
@@ -13,6 +15,8 @@ export default function ExamPageContent() {
   const [selectedYear, setSelectedYear] = useState<string>("");
   const [selectedGrade, setSelectedGrade] = useState<string>("");
   const [selectedSpeciality, setSelectedSpeciality] = useState<string>("");
+  const [selectedSession, setSelectedSession] = useState<string>("");
+  const [selectedType, setSelectedType] = useState<string>("");
   const [selectedExam, setSelectedExam] = useState<ExamPreset | null>(null);
   const [filteredExams, setFilteredExams] = useState<ExamPreset[]>([]);
   const [loading, setLoading] = useState(true);
@@ -26,11 +30,12 @@ export default function ExamPageContent() {
           grade: selectedGrade,
           speciality: selectedSpeciality,
         });
-
         const exams = await getFilteredExams(
           selectedYear,
           selectedGrade,
-          selectedSpeciality
+          selectedSpeciality,
+          selectedSession,
+          selectedType
         );
 
         console.log("Filtered exams:", exams);
@@ -42,7 +47,13 @@ export default function ExamPageContent() {
       }
     }
     updateFilteredExams();
-  }, [selectedYear, selectedGrade, selectedSpeciality]);
+  }, [
+    selectedYear,
+    selectedGrade,
+    selectedSpeciality,
+    selectedSession,
+    selectedType,
+  ]);
 
   const handleYearChange = (year: string) => {
     setSelectedYear(year);
@@ -51,9 +62,16 @@ export default function ExamPageContent() {
   const handleGradeChange = (grade: string) => {
     setSelectedGrade(grade);
   };
-
   const handleSpecialityChange = (speciality: string) => {
     setSelectedSpeciality(speciality);
+  };
+
+  const handleSessionChange = (session: string) => {
+    setSelectedSession(session);
+  };
+
+  const handleTypeChange = (type: string) => {
+    setSelectedType(type);
   };
 
   const handleSelectExam = (exam: ExamPreset) => {
@@ -67,7 +85,7 @@ export default function ExamPageContent() {
   return (
     <div className="w-full">
       <Background />
-      <div className="relative z-10">
+      <div className="relative z-10 ">
         {!selectedExam ? (
           <>
             <div className="flex pt-4 justify-center">
@@ -80,14 +98,21 @@ export default function ExamPageContent() {
                 selectedYear={selectedYear}
                 onChange={handleYearChange}
               />
-
               <GradeSelector
                 selectedGrade={selectedGrade}
                 onChange={handleGradeChange}
-              />
+              />{" "}
               <SpecialitySelector
                 selectedSpeciality={selectedSpeciality}
                 onChange={handleSpecialityChange}
+              />
+              <SessionSelector
+                selectedSession={selectedSession}
+                onChange={handleSessionChange}
+              />
+              <TypeSelector
+                selectedType={selectedType}
+                onChange={handleTypeChange}
               />
             </div>
             <div className="p-4">

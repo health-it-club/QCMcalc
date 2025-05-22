@@ -13,7 +13,9 @@ export const fetchExams = async () => {
 export const getFilteredExams = async (
   year = "",
   grade = "",
-  speciality = ""
+  speciality = "",
+  session = "",
+  type = ""
 ): Promise<ExamPreset[]> => {
   try {
     const examsRef = collection(db, "exams");
@@ -28,6 +30,12 @@ export const getFilteredExams = async (
     }
     if (speciality) {
       q = query(q, where("speciality", "==", speciality));
+    }
+    if (session) {
+      q = query(q, where("session", "==", session));
+    }
+    if (type) {
+      q = query(q, where("type", "==", type));
     }
 
     const snapshot = await getDocs(q);
