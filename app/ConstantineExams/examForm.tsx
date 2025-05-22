@@ -17,6 +17,20 @@ const parseAnswerSets = (answerString: string): string[][] => {
   return answerString.split("|").map((set) => set.split(","));
 };
 
+// Helper function to handle both string and array formats of answers
+const getAnswerSets = (answer: any): string[][] => {
+  if (!answer) return [[]];
+  // If it's already an array of arrays, return as is
+  if (Array.isArray(answer) && Array.isArray(answer[0]))
+    return answer as string[][];
+  // If it's a string, parse it ("A,B|C,D" format)
+  if (typeof answer === "string")
+    return answer.split("|").map((set) => set.split(","));
+  // If it's a single array, wrap it
+  if (Array.isArray(answer)) return [answer as string[]];
+  return [[]];
+};
+
 export default function ExamForm({ exam, onBack }: PresetQuizFormProps) {
   const [userAnswers, setUserAnswers] = useState<Record<number, string[]>>({});
   const [result, setResult] = useState<{
@@ -91,13 +105,10 @@ export default function ExamForm({ exam, onBack }: PresetQuizFormProps) {
         : exam.numQuestions;
 
     for (let i = 1; i <= numQuestionsInt; i++) {
-      // Get answer string and parse it into arrays
-      const answerString = exam.correctAnswers[i] || "";
-      if (!answerString) continue;
+      const possibleAnswerSets = getAnswerSets(exam.correctAnswers[i]);
+      if (possibleAnswerSets[0].length === 0) continue;
 
-      const possibleAnswerSets = parseAnswerSets(answerString);
       const userAns = userAnswers[i] || [];
-
       countedQuestions++;
       let questionScore = 0;
 
