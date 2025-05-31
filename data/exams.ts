@@ -9,7 +9,7 @@ export interface ExamPreset {
   numQuestions: string | number;
   testType: "QCSs" | "allOrNothing" | "partiallyPositive" | "partiallyNegative";
   correctAnswers: {
-    [key: number]: string; // Format: "A,B,C|A,B,D" for multiple possible answers
+    [key: number]: string;
   };
   session: "Normal" | "Rattrapage";
   type: "Théorique" | "Clinique";
