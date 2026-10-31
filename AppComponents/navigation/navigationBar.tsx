@@ -1,40 +1,80 @@
+"use client";
+
 import React from "react";
 import HITlogo from "./logo";
-import { lazy } from "react";
 import { NavDropdownMenu } from "./navDropdownMenu";
 import Link from "next/link";
-
-const MarkdownPreview = lazy(() => import("./logo"));
+import { usePathname } from "next/navigation";
+import { Calculator, GraduationCap, HelpCircle, ExternalLink } from "lucide-react";
 
 export default function NavigationBar() {
+  const pathname = usePathname();
+
+  const navLinks = [
+    {
+      href: "/",
+      label: "Calculateur",
+      icon: Calculator,
+      isActive: pathname === "/",
+    },
+    {
+      href: "/ConstantineExams",
+      label: "Examens de Constantine",
+      icon: GraduationCap,
+      isActive: pathname?.startsWith("/ConstantineExams"),
+    },
+    {
+      href: "/HowDoesItWork",
+      label: "Comment ça marche ?",
+      icon: HelpCircle,
+      isActive: pathname?.startsWith("/HowDoesItWork"),
+    },
+  ];
+
   return (
-    <div className="w-full bg-dark/5 border-b-1 border-solid lborder-light-800 backdrop-blur-md">
-      <nav className="p-4 flex flex-row justify-between items-center my-1">
-        <div className="">
-          <Link href="/">
+    <header className="sticky top-0 z-40 w-full bg-zinc-950/80 border-b border-zinc-800/80 backdrop-blur-md">
+      <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-3 group">
+          <div className="w-36 md:w-44 transition group-hover:opacity-90">
             <HITlogo />
-          </Link>
-        </div>
-        <div
-          className="hidden font-semibold text-xs flex-row space-x-6 px-5 font-Inter text-light-200 
-          md:flex md:font-bold md:text-[13px]">
-          <Link href="/ConstantineExams" className="flex hover:text-light">
-            Examens De Constantine
-          </Link>
-          <Link href="/HowDoesItWork" className="flex hover:text-light">
-            Comment Ça marche?
-          </Link>
+          </div>
+        </Link>
+
+        {/* Desktop Navigation Links */}
+        <nav className="hidden md:flex items-center gap-1 text-sm font-medium">
+          {navLinks.map((link) => {
+            const Icon = link.icon;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`flex items-center gap-2 px-3.5 py-2 rounded-xl transition ${
+                  link.isActive
+                    ? "bg-zinc-800/90 text-white font-semibold"
+                    : "text-zinc-400 hover:text-white hover:bg-zinc-900"
+                }`}>
+                <Icon className={`w-4 h-4 ${link.isActive ? "text-blue-400" : "text-zinc-500"}`} />
+                <span>{link.label}</span>
+              </Link>
+            );
+          })}
+
           <Link
             href="https://linktr.ee/Health._it"
-            target="blank"
-            className="flex hover:text-light">
-            Contactez Nous
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-zinc-400 hover:text-white hover:bg-zinc-900 transition ml-2">
+            <span>Health IT Club</span>
+            <ExternalLink className="w-3.5 h-3.5 text-zinc-500" />
           </Link>
-        </div>
+        </nav>
+
+        {/* Mobile dropdown */}
         <div className="md:hidden">
           <NavDropdownMenu />
         </div>
-      </nav>
-    </div>
+      </div>
+    </header>
   );
 }
